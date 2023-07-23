@@ -1,0 +1,346 @@
+<html>
+<head>
+    <meta charset="utf-8"/>
+<meta name="description" content=""/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<title>XJ4 STL 的 set 与 priority_queue | HappyCode&#39;s Blog</title>
+
+<link rel="shortcut icon" href="https://Happy-Code-HC.github.io/favicon.ico?v=1690095254216">
+
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://Happy-Code-HC.github.io/styles/main.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets/highlight.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dockerfile.min.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.15.10/languages/dart.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/moment@2.27.0/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.min.js"></script>
+<!-- DEMO JS -->
+<!--<script src="media/scripts/index.js"></script>-->
+
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.css">
+</head>
+<body>
+<div class="main gt-bg-theme-color-first">
+    <nav class="navbar navbar-expand-lg">
+    <div class="navbar-brand">
+        <img class="user-avatar" src="/images/avatar.png" alt="头像">
+        <div class="site-name gt-c-content-color-first">
+            HappyCode&#39;s Blog
+        </div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars gt-c-content-color-first" style="font-size: 18px"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="navbar-nav mr-auto" style="text-align: center">
+            
+                <div class="nav-item">
+                    
+                        <a href="/" class="menu gt-a-link">
+                            首页
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/tags" class="menu gt-a-link">
+                            标签
+                        </a>
+                    
+                </div>
+            
+                <div class="nav-item">
+                    
+                        <a href="/friends" class="menu gt-a-link">
+                            友链
+                        </a>
+                    
+                </div>
+            
+        </div>
+        <div style="text-align: center">
+            <form id="gridea-search-form" style="position: relative" data-update="1690095254216" action="/search/index.html">
+                <input class="search-input" autocomplete="off" spellcheck="false" name="q" placeholder="搜索文章" />
+                <i class="fas fa-search gt-c-content-color-first" style="position: absolute; top: 9px; left: 10px;"></i>
+            </form>
+        </div>
+    </div>
+</nav>
+
+    <div class="post-container">
+        <div class="post-detail gt-bg-theme-color-second">
+            <article class="gt-post-content">
+                <h2 class="post-title">
+                    XJ4 STL 的 set 与 priority_queue
+                </h2>
+                <div class="post-info">
+                    <time class="post-time gt-c-content-color-first">
+                        · 2022-08-08 ·
+                    </time>
+                    
+                        <a href="https://Happy-Code-HC.github.io/tag/solution/" class="post-tags">
+                            # 题解
+                        </a>
+                    
+                </div>
+                <div class="post-content">
+                    <h2 id="map"><code>map</code></h2>
+<p><code>map</code> 是一种映射容器，其头文件是 <code>map</code>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>map&lt;x,y&gt; m</code></td>
+<td style="text-align:center">建立一个名字为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 的映射，下标类型为 <code>x</code>，元素类型为 <code>y</code>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>m[x]=y</code></td>
+<td style="text-align:center">将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>m</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">m_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 的值设为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>m.find(x)!=a.end()</code></td>
+<td style="text-align:center">判断 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>m</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">m_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 是否存在</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>m.erase(x)</code></td>
+<td style="text-align:center">将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>m</mi><mi>x</mi></msub></mrow><annotation encoding="application/x-tex">m_x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">m</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">x</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 删除</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>m.clear()</code></td>
+<td style="text-align:center">清空 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>m.size()</code></td>
+<td style="text-align:center">返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>m</mi></mrow><annotation encoding="application/x-tex">m</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">m</span></span></span></span> 中的元素数量</td>
+</tr>
+</tbody>
+</table>
+<p>遍历 map 可以使用迭代器。</p>
+<pre><code class="language-cpp">map&lt;int,int&gt; m;
+for(map&lt;int,int&gt;::iterator i=m.begin();i!=m.end();i++){
+	int id=i-&gt;first; //id 为下标
+  	int value=i-&gt;second;//value 为元素
+}
+</code></pre>
+<p>其中 <code>map&lt;int,int&gt;::iterator</code> 在使用 C++11 以上时可替换为 <code>auto</code>，CSP-J/S 及 NOIP 等比赛可以使用。<code>auto</code> 为自动类型推断，<strong>请勿滥用 <code>auto</code>。</strong></p>
+<p><code>map</code> 底层为二叉平衡树（红黑树），因此单次操作时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</p>
+<h2 id="set"><code>set</code></h2>
+<p><code>set</code> 是一个 <strong>不可重</strong> 集合，其头文件是 <code>set</code>。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>set&lt;x&gt; s</code></td>
+<td style="text-align:center">建立一个名字为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 的集合，元素类型为 <code>x</code>。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>s.insert(x)</code></td>
+<td style="text-align:center">将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 插入集合</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>s.find(x)!=a.end()</code></td>
+<td style="text-align:center">判断 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 是否在集合中</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>s.erase(x)</code></td>
+<td style="text-align:center">将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 从集合中删除删除</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>s.clear()</code></td>
+<td style="text-align:center">清空 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span></td>
+</tr>
+<tr>
+<td style="text-align:center"><code>s.size()</code></td>
+<td style="text-align:center">返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>s</mi></mrow><annotation encoding="application/x-tex">s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">s</span></span></span></span> 中的元素数量</td>
+</tr>
+</tbody>
+</table>
+<p>遍历 set 可以使用迭代器。</p>
+<pre><code class="language-cpp">set&lt;int&gt; s;
+for(set&lt;int&gt;::iterator i=s.begin();i!=s.end();i++){
+	int value=*i;
+}
+</code></pre>
+<p>set 会自动将元素去重并进行升序排序。</p>
+<p><code>map</code> 底层为二叉平衡树，因此单次操作时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</p>
+<h2 id="multiset"><code>multiset</code></h2>
+<p><code>multiset</code> 与 <code>set</code> 类似，但是 <code>multiset</code> 是 <strong>可重的</strong>，其头文件是 <code>set</code>。</p>
+<p>由于 <code>multiset</code> 是可重的，所以做删除操作有两种情况，分别是删除所有值为 <code>x</code> 的元素，和删除一个值为 <code>x</code> 的元素。</p>
+<pre><code class="language-cpp">s.erase(x) //删除所有值为 x 的元素
+if(s.find(x)!=s.end()){
+    s.erase(s.find(x)); //删除一个值为 x 的元素
+}
+</code></pre>
+<p>可以通过 <code>lower_bound()</code> 函数与 <code>upper_bound()</code> 函数查询 <code>mutiset</code> 中 <code>x</code> 的前驱及后继。</p>
+<pre><code class="language-cpp">set&lt;int&gt;::iterator it=s.lower_bound(x);
+it--;
+int pre=*it; //前驱
+</code></pre>
+<pre><code class="language-cpp">set&lt;int&gt;::iterator it=s.upper_bound(x);
+int nxt=*it; //后继
+</code></pre>
+<h2 id="priority_queue"><code>priority_queue</code></h2>
+<p><code>priority_queue</code> 是一个优先队列，在头文件 <code>queue</code> 中。</p>
+<p>优先队列是一个弹出元素时弹出最大值的数据结构。</p>
+<p><code>priority_queue</code> 可在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(\log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span> 的时间复杂度插入元素，在 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mn>1</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span> 的时间复杂度获取/弹出队首元素。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">功能</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>priority_queue&lt;x&gt; q</code></td>
+<td style="text-align:center">建立一个名字为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 的优先队列，元素类型为 <code>x</code>，队首为最大值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>priority_queue&lt;x,vector&lt;x&gt;,greater&lt;x&gt; &gt; q</code></td>
+<td style="text-align:center">建立一个名字为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 的优先队列，元素类型为 <code>x</code>，队首为最小值。</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>q.top()</code></td>
+<td style="text-align:center">获取队首元素</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>q.pop()</code></td>
+<td style="text-align:center">获取队首元素</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>q.size()</code></td>
+<td style="text-align:center">返回 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 中的元素数量</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>q.push(x)</code></td>
+<td style="text-align:center">将元素 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 插入到 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>q</mi></mrow><annotation encoding="application/x-tex">q</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">q</span></span></span></span> 中</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>例题：<a href="https://www.luogu.com.cn/problem/P3378">【模板】堆</a></p>
+<p>给定一个数列，初始为空，请支持下面三种操作：</p>
+<ol>
+<li>给定一个整数 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>，请将 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span> 加入到数列中。</li>
+<li>输出数列中最小的数。</li>
+<li>删除数列中最小的数（如果有多个数最小，只删除 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>1</mn></mrow><annotation encoding="application/x-tex">1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> 个）。</li>
+</ol>
+<p>思路：使用 <code>priority_queue&lt;int,vector&lt;int&gt;,greater&lt;int&gt; &gt; q</code> 让最小值放在队首，按照题目说明及上方表格完成操作。</p>
+<hr>
+<p>例题：<a href="https://www.luogu.com.cn/problem/P1090">合并果子</a></p>
+<p>通过模拟合并的过程，我们会发现每次选择两个最小的元素合并成较大的元素是最优策略，可以由哈夫曼编码证明（具体请参考《深基》）</p>
+<p>因而，每次从序列中找到最小值和次小值，将其相加再放入序列中即可。时间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><mi>n</mi><mi>log</mi><mo>⁡</mo><mi>n</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">O(n \log n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">n</span><span class="mclose">)</span></span></span></span>。</p>
+
+                </div>
+            </article>
+        </div>
+
+        
+            <div class="next-post">
+                <div class="next gt-c-content-color-first">下一篇</div>
+                <a href="https://Happy-Code-HC.github.io/post/yugu22nxj7/" class="post-title gt-a-link">
+                    XJ7 第 2 周 授课
+                </a>
+            </div>
+        
+
+        
+            <span id="/post/yugu22nxj4/" class="leancloud_visitors" data-flag-title="XJ4 STL 的 set 与 priority_queue">
+                <em class="post-meta-item-text">阅读量 </em>
+                <i class="leancloud-visitors-count">0</i>
+            </span>
+        
+
+        
+
+        
+            <script src='https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js'></script>
+
+<style>
+	div#vcomments{
+		width:100%;
+		max-width: 1000px;
+		padding: 2.5%
+	}
+</style>
+
+
+	<div id="vcomments"></div>
+
+<script>
+	new Valine({
+		el: '#vcomments',
+		appId: 'jgqWQkygxwa588WZBisDTk7h-gzGzoHsz',
+		appKey: 'jHQ5aFwqoNabaiGy3g3eLcF6',
+		avatar: '',
+		pageSize: 5,
+		recordIp: true,
+		placeholder: 'Think twice, code once.',
+		visitor: true,
+	});
+</script>
+
+        
+
+        <div class="site-footer gt-c-content-color-first">
+    <div class="slogan gt-c-content-color-first">Think twice, code once.</div>
+    <div class="social-container">
+        
+            
+                <a href="https://github.com/Happy-Code-HC" target="_blank">
+                    <i class="fab fa-github gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+            
+                <a href="https://www.zhihu.com/people/happycode-51" target="_blank">
+                    <i class="fab fa-zhihu gt-c-content-color-first"></i>
+                </a>
+            
+        
+            
+        
+            
+        
+    </div>
+    <div class="footer-info">
+        Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+    </div>
+    <div>
+        Theme by <a href="https://imhanjie.com/" target="_blank">imhanjie</a>, Powered by <a
+                href="https://github.com/getgridea/gridea" target="_blank">Gridea | <a href="https://Happy-Code-HC.github.io/atom.xml" target="_blank">RSS</a></a>
+    </div>
+</div>
+
+<script>
+  hljs.initHighlightingOnLoad()
+</script>
+
+    </div>
+</div>
+</body>
+</html>
